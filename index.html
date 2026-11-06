@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>由布院駅前バスセンター 到着時刻</title>
+<style>
+  :root {
+    --bg: #f6f4ef;
+    --card: #ffffff;
+    --ink: #1a1a1a;
+    --muted: #5c5c5c;
+    --line: #e2ddd3;
+    --accent: #1f5c4a;
+    --accent-soft: #e7f2ee;
+    --warn: #7a4a12;
+    --warn-bg: #fff4e5;
+    --chip: #f0ebe3;
+    --chip-on: #1f5c4a;
+    --chip-on-fg: #fff;
+    --shadow: 0 1px 2px rgba(0,0,0,.06);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    font-size: 16px;
+  }
+  header {
+    background: var(--accent);
+    color: #fff;
+    padding: 1.1rem 1rem 1.25rem;
+  }
+  header h1 {
+    margin: 0 0 .35rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: .02em;
+  }
+  header p {
+    margin: 0;
+    opacity: .92;
+    font-size: .92rem;
+  }
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  .callout {
+    background: var(--warn-bg);
+    color: var(--warn);
+    border: 1px solid #f0d7a8;
+    border-radius: 12px;
+    padding: .9rem 1rem;
+    margin: 0 0 1rem;
+    font-size: .95rem;
+  }
+  .callout strong { display: block; margin-bottom: .25rem; color: #5a3608; }
+  nav.toc {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: .75rem 1rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+  }
+  nav.toc h2 {
+    margin: 0 0 .4rem;
+    font-size: .95rem;
+  }
+  nav.toc ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem .75rem;
+  }
+  nav.toc a {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: .9rem;
+  }
+  nav.toc a:hover { text-decoration: underline; }
+  section.card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+  }
+  section.card h2 {
+    margin: 0 0 .35rem;
+    font-size: 1.15rem;
+  }
+  .caption {
+    color: var(--muted);
+    font-size: .88rem;
+    margin: 0 0 .75rem;
+  }
+  .controls {
+    display: flex;
+    flex-direction: column;
+    gap: .65rem;
+    margin-bottom: .85rem;
+  }
+  .seg {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+  }
+  .seg button {
+    appearance: none;
+    border: 1px solid var(--line);
+    background: var(--chip);
+    color: var(--ink);
+    border-radius: 999px;
+    padding: .45rem .85rem;
+    font-size: .92rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .seg button .count {
+    font-weight: 500;
+    opacity: .75;
+    margin-left: .2rem;
+  }
+  .seg button[aria-pressed="true"] {
+    background: var(--chip-on);
+    border-color: var(--chip-on);
+    color: var(--chip-on-fg);
+  }
+  .seg button:focus-visible {
+    outline: 3px solid #9ecfbf;
+    outline-offset: 2px;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: .9rem;
+    margin: 0 0 .5rem;
+  }
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 640px;
+    background: #fff;
+  }
+  th, td {
+    text-align: left;
+    padding: .65rem .7rem;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+    font-size: .95rem;
+  }
+  th {
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 700;
+    position: sticky;
+    top: 0;
+    white-space: nowrap;
+  }
+  tr:last-child td { border-bottom: none; }
+  td.time {
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    white-space: nowrap;
+    font-size: 1.05rem;
+  }
+  .empty {
+    padding: 1rem;
+    color: var(--muted);
+    text-align: center;
+  }
+  .body-text {
+    margin: 0 0 .75rem;
+    font-size: .95rem;
+  }
+  .sources {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .sources li {
+    margin: 0 0 .55rem;
+    padding-bottom: .55rem;
+    border-bottom: 1px dashed var(--line);
+  }
+  .sources li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .sources a {
+    color: var(--accent);
+    word-break: break-all;
+    font-size: .92rem;
+  }
+  .sources .site {
+    display: block;
+    color: var(--muted);
+    font-size: .8rem;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: .82rem;
+    padding: .5rem 0 1.5rem;
+  }
+  .top-link {
+    display: inline-block;
+    margin-top: .5rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  @media (max-width: 640px) {
+    body { font-size: 15px; }
+    header h1 { font-size: 1.2rem; }
+    th, td { padding: .55rem .5rem; font-size: .9rem; }
+    td.time { font-size: 1rem; }
+    .seg button { padding: .5rem .75rem; font-size: .88rem; }
+  }
+  @media print {
+    body { background: #fff; font-size: 11pt; }
+    header { background: #fff; color: #000; border-bottom: 2px solid #000; padding: .5rem 0; }
+    .callout { border-color: #999; background: #fff; color: #000; }
+    nav.toc, .controls, .top-link { display: none !important; }
+    section.card {
+      break-inside: avoid;
+      box-shadow: none;
+      border: 1px solid #ccc;
+      margin-bottom: .75rem;
+    }
+    th { background: #eee !important; color: #000; position: static; }
+    table { min-width: 0; }
+    a { color: #000; text-decoration: none; }
+    .sources a::after { content: " (" attr(href) ")"; font-size: 8pt; word-break: break-all; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>由布院駅前バスセンター 到着時刻</h1>
+  <p>宿の送迎向け・到着のみの時間順一覧</p>
+</header>
+<main>
+  <div class="callout">
+    <strong>2026年11月6日確認、到着のみ</strong>
+    公式時刻表から転記した予定到着です。道路事情で遅れることがあり、改正もあるので、出発前に各社の最新を確認してください。お盆（8月13日〜15日）と年末年始（12月29日〜1月3日）の路線バスは土日祝ダイヤです。発車時刻は載せていません。
+  </div>
+
+  <nav class="toc" aria-label="目次">
+    <h2>目次</h2>
+    <ul>
+      <li><a href="#chrono">時間順の到着一覧</a></li>
+      <li><a href="#kyusanko">九州横断バス（黒川・熊本）</a></li>
+      <li><a href="#yufuingo">ゆふいん号（福岡）</a></li>
+      <li><a href="#line36">36 湯布院線（別府）</a></li>
+      <li><a href="#yufurin">観光快速ゆふりん</a></li>
+      <li><a href="#line37">37 牧の戸峠線</a></li>
+      <li><a href="#airport">湯布院ライナー（大分空港）</a></li>
+      <li><a href="#other">臨時直行とコミュニティバス</a></li>
+      <li><a href="#sources">出典</a></li>
+    </ul>
+  </nav>
+
+  <section class="card" id="chrono">
+    <h2>時間順の到着一覧</h2>
+    <p class="caption">空港便は2026年10月25日〜11月30日の時刻。37番は4月4日〜11月29日の土日祝のみ。</p>
+    <div class="controls">
+      <div class="seg" id="day-seg" role="group" aria-label="曜日"></div>
+      <div class="seg" id="group-seg" role="group" aria-label="方面"></div>
+    </div>
+    <p class="meta" id="result-meta"></p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>到着</th>
+            <th>会社</th>
+            <th>路線</th>
+            <th>起点・経由</th>
+            <th>備考</th>
+          </tr>
+        </thead>
+        <tbody id="chrono-body"></tbody>
+      </table>
+      <div class="empty" id="chrono-empty" hidden>該当する便がありません。</div>
+    </div>
+  </section>
+
+  <section class="card" id="kyusanko">
+    <h2>九州横断バス（黒川・熊本）</h2>
+    <p class="body-text">九州産交バス。平日も土日祝も同じダイヤです。2025年10月1日改正の公式発表時刻で、2026年11月確認時点でもこの便数・時刻で掲載されています。一部予約制（座席定員制）です。6号（13:50発）と8号（14:50発）は由布院始発なので到着一覧には入れていません。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>到着</th><th>会社</th><th>路線</th><th>起点・経由</th><th>備考</th></tr></thead>
+        <tbody>
+          <tr><td class="time">9:10</td><td>九州産交バス</td><td>2号</td><td>別府駅前本町 8:10発（鉄輪・城島高原）</td><td>黒川温泉・熊本へ続行</td></tr>
+          <tr><td class="time">11:48</td><td>九州産交バス</td><td>1号</td><td>熊本駅前 7:23発・黒川温泉 10:15発</td><td>由布院終点</td></tr>
+          <tr><td class="time">12:48</td><td>九州産交バス</td><td>3号</td><td>熊本駅前 8:23発・黒川温泉 11:15発</td><td>由布院終点</td></tr>
+          <tr><td class="time">16:33</td><td>九州産交バス</td><td>7号</td><td>熊本駅前 12:08発・黒川温泉 15:00発</td><td>城島高原・鉄輪を経由し別府へ続行</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card" id="yufuingo">
+    <h2>ゆふいん号（福岡）</h2>
+    <p class="body-text">西鉄・日田バス・亀の井バスが運行する通年ダイヤで、2025年4月1日改正。1日14便です。全便座席指定の予約制です。天神高速バスターミナル発、博多バスターミナル・福岡空港国際線を経由します。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>到着</th><th>会社</th><th>路線</th><th>起点・経由</th><th>備考</th></tr></thead>
+        <tbody id="yufuingo-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card" id="line36">
+    <h2>36 湯布院線（別府）</h2>
+    <p class="body-text">亀の井バス。2026年3月14日現在の公式PDFです。別府駅西口発、堀田・ロープウェイ・城島高原パーク・岳本経由で、由布院駅前バスセンターが終点（降車）です。上の平日／土日祝切り替えに連動します。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>到着</th><th>会社</th><th>路線</th><th>起点・経由</th><th>備考</th></tr></thead>
+        <tbody id="line36-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card" id="yufurin">
+    <h2>観光快速ゆふりん</h2>
+    <p class="body-text">亀の井バス。別府駅前5番のりば発、鉄輪・城島高原パーク経由で由布院駅前バスセンター降車です。土日祝は6便、平日は中型路線バスで1便（12:13着）です。湯布院行の面は2025年7月19日現在と記され、公式の2026年3月の時刻表一覧に掲載されています。上の平日／土日祝切り替えに連動します。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>到着</th><th>会社</th><th>路線</th><th>起点・経由</th><th>備考</th></tr></thead>
+        <tbody id="yufurin-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card" id="line37">
+    <h2>37 牧の戸峠線</h2>
+    <p class="body-text">亀の井バス。2026年4月4日から11月29日の土日祝のみ運行し、12月から3月は運休です。牧の戸峠発、九重夢大吊り橋・くじゅう登山口・道の駅ゆふいん経由で由布院駅前バスセンター降車です。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>到着</th><th>会社</th><th>路線</th><th>起点・経由</th><th>備考</th></tr></thead>
+        <tbody>
+          <tr><td class="time">13:22</td><td>亀の井バス</td><td>37 牧の戸峠線</td><td>牧の戸峠 12:05発</td><td>土日祝のみ。4/4〜11/29</td></tr>
+          <tr><td class="time">16:45</td><td>亀の井バス</td><td>37 牧の戸峠線</td><td>牧の戸峠 15:28発</td><td>土日祝のみ。4/4〜11/29</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card" id="airport">
+    <h2>湯布院ライナー（大分空港）</h2>
+    <p class="body-text">大分交通の空港アクセスバスで、高速道路経由の直行です。運賃は大人2,000円、所要約55分です。本日時点は10月25日〜11月30日のダイヤです。12月1日以降は朝の2便だけ少し5分遅くなります。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>到着</th><th>空港発</th><th>適用期間</th><th>備考</th></tr></thead>
+        <tbody>
+          <tr><td class="time">10:55</td><td>10:00</td><td>2026年10月25日〜11月30日</td><td>系統Y</td></tr>
+          <tr><td class="time">12:40</td><td>11:45</td><td>2026年10月25日〜11月30日</td><td>系統Y</td></tr>
+          <tr><td class="time">15:00</td><td>14:05</td><td>両期間とも同じ</td><td>系統Y</td></tr>
+          <tr><td class="time">17:00</td><td>16:05</td><td>両期間とも同じ</td><td>系統Y</td></tr>
+          <tr><td class="time">18:30</td><td>17:35</td><td>両期間とも同じ</td><td>系統Y</td></tr>
+          <tr><td class="time">11:00</td><td>10:05</td><td>2026年12月1日〜2027年1月4日</td><td>朝の便が5分遅れ</td></tr>
+          <tr><td class="time">12:45</td><td>11:50</td><td>2026年12月1日〜2027年1月4日</td><td>朝の便が5分遅れ</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card" id="other">
+    <h2>臨時直行とコミュニティバス</h2>
+    <p class="body-text">亀の井バスは2026年10月1日から2027年3月31日まで、別府駅前5番のりば9時30分発の直行臨時バスを運行しています。停車は別府駅前と由布院駅前バスセンターのみですが、公式の到着時刻は発表されていないため推定では書いていません。</p>
+    <p class="body-text">由布市コミュニティバス（ユーバス）も由布院駅前バスセンターに停まります（シャトル、塚原コースなど）。土日祝は運休で、令和8年4月1日改正の地図型PDFのため到着数字はここに転記していません。時刻は市の公式PDFをご確認ください。</p>
+  </section>
+
+  <section class="card" id="sources">
+    <h2>出典</h2>
+    <ul class="sources">
+      <li><span class="site">kamenoibus.com</span><a href="https://kamenoibus.com/scheduled_tt/pdf/202603/36d.pdf">亀の井バス 36番 平日（2026年3月14日現在）</a></li>
+      <li><span class="site">kamenoibus.com</span><a href="https://kamenoibus.com/scheduled_tt/pdf/202603/36e.pdf">亀の井バス 36番 土日祝（2026年3月14日現在）</a></li>
+      <li><span class="site">kamenoibus.com</span><a href="https://kamenoibus.com/scheduled_tt/pdf/202603/yufurin_e.pdf">観光快速ゆふりん 土日祝</a></li>
+      <li><span class="site">kamenoibus.com</span><a href="https://kamenoibus.com/scheduled_tt/pdf/202603/yufurin_d.pdf">観光快速ゆふりん 平日</a></li>
+      <li><span class="site">kamenoibus.com</span><a href="https://kamenoibus.com/archive/uploads/2026/03/37timetable.pdf">37 牧の戸峠線 時刻表</a></li>
+      <li><span class="site">kamenoibus.com</span><a href="https://kamenoibus.com/archive/3381.html">別府駅～由布院 直行臨時バス</a></li>
+      <li><span class="site">hitabus.com</span><a href="https://hitabus.com/highways/2468">ゆふいん号 湯布院行（2025年4月1日改正）</a></li>
+      <li><span class="site">nishitetsu.jp</span><a href="https://www.nishitetsu.jp/bus/highwaybus/rosen/yufuin/">西鉄 ゆふいん号</a></li>
+      <li><span class="site">kyusanko.co.jp</span><a href="https://www.kyusanko.co.jp/sankobus/kyushu_odan/">九州横断バス</a></li>
+      <li><span class="site">kyusanko.co.jp</span><a href="https://www.kyusanko.co.jp/news-group/pdf/2025/0729_bs.pdf">九州横断バス 2025年10月1日改正のお知らせ</a></li>
+      <li><span class="site">oitakotsu.co.jp</span><a href="https://www.oitakotsu.co.jp/bus/airport/disp.php?rosen=03&amp;shubetu=2&amp;period=20261025_20261130">湯布院ライナー 10/25〜11/30</a></li>
+      <li><span class="site">oitakotsu.co.jp</span><a href="https://www.oitakotsu.co.jp/bus/airport/disp.php?rosen=03&amp;shubetu=2&amp;period=20261201_20270104">湯布院ライナー 12/1〜1/4</a></li>
+      <li><span class="site">city.yufu.oita.jp</span><a href="https://www.city.yufu.oita.jp/bus/jikokuhyo">由布市ユーバス時刻表</a></li>
+      <li><span class="site">beppuni.com</span><a href="https://www.beppuni.com/bus/time_k/y1.pdf">由布院駅前バスセンター 発車時刻表（2026/10/01現在）</a></li>
+    </ul>
+  </section>
+
+  <footer>
+    <a class="top-link" href="#">先頭へ</a>
+    <div>由布院 旅館送迎向け・オフライン閲覧用 HTML</div>
+  </footer>
+</main>
+
+<script>
+const BOTH = ["weekday", "weekend"];
+const arrivals = [
+  { time: "8:34", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 7:37発（志高湖畔経由）", note: "降車。ロープウェイ不寄り", days: ["weekend"], group: "beppu" },
+  { time: "8:35", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 7:37発（志高湖畔経由）", note: "降車。ロープウェイ不寄り", days: ["weekday"], group: "beppu" },
+  { time: "8:48", company: "亀の井バス", route: "観光快速ゆふりん", origin: "別府駅前 7:40発（鉄輪・城島高原）", note: "降車。さんふらわあ不寄り", days: ["weekend"], group: "beppu" },
+  { time: "9:10", company: "九州産交バス", route: "九州横断バス2号", origin: "別府駅前本町 8:10発（鉄輪・城島高原）", note: "一部予約制。黒川温泉・熊本へ続行", days: BOTH, group: "beppu" },
+  { time: "9:12", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 8:20発", note: "降車", days: ["weekend"], group: "beppu" },
+  { time: "9:32", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 8:40発", note: "降車", days: ["weekend"], group: "beppu" },
+  { time: "9:33", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 8:40発", note: "降車", days: ["weekday"], group: "beppu" },
+  { time: "9:40", company: "亀の井バス", route: "観光快速ゆふりん", origin: "別府駅前 8:30発（鉄輪・城島高原）", note: "降車。さんふらわあ経由", days: ["weekend"], group: "beppu" },
+  { time: "10:02", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 9:10発", note: "降車", days: BOTH, group: "beppu" },
+  { time: "10:05", company: "亀の井バス", route: "オープントップバス ゆのかぜ", origin: "別府駅前 9:00発（タワー・堀田・高速道路・エコーライン）", note: "予約制。2026/10/7〜12/13。約65分", days: BOTH, group: "beppu" },
+  { time: "10:22", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 9:30発", note: "降車", days: ["weekend"], group: "beppu" },
+  { time: "10:32", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 9:40発", note: "降車", days: ["weekday"], group: "beppu" },
+  { time: "10:42", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 9:50発", note: "降車", days: ["weekend"], group: "beppu" },
+  { time: "10:55", company: "大分交通", route: "湯布院ライナー Y", origin: "大分空港 10:00発（高速道路直行）", note: "10/25〜11/30。所要55分", days: BOTH, group: "airport" },
+  { time: "10:59", company: "亀の井バス", route: "ゆふいん号", origin: "天神 8:25発・博多 8:48・空港 9:08", note: "全便予約制。道の駅ゆふいん経由", days: BOTH, group: "fukuoka" },
+  { time: "11:02", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 10:10発", note: "降車", days: BOTH, group: "beppu" },
+  { time: "11:17", company: "西鉄", route: "ゆふいん号", origin: "天神 8:55発・博多 9:18・空港 9:38", note: "全便予約制。途中の一部停留所を通過", days: BOTH, group: "fukuoka" },
+  { time: "11:32", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 10:40発", note: "降車", days: BOTH, group: "beppu" },
+  { time: "11:47", company: "日田バス", route: "ゆふいん号", origin: "天神 9:25発・博多 9:48・空港 10:08", note: "全便予約制。途中の一部停留所を通過", days: BOTH, group: "fukuoka" },
+  { time: "11:48", company: "九州産交バス", route: "九州横断バス1号", origin: "熊本駅前 7:23発・黒川温泉 10:15発", note: "一部予約制。由布院終点", days: BOTH, group: "kurokawa" },
+  { time: "12:02", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 11:10発", note: "降車", days: BOTH, group: "beppu" },
+  { time: "12:13", company: "亀の井バス", route: "観光快速ゆふりん", origin: "別府駅前 11:05発（鉄輪・城島高原）", note: "降車。平日は中型路線バス、1便", days: BOTH, group: "beppu" },
+  { time: "12:17", company: "西鉄", route: "ゆふいん号", origin: "天神 9:55発・博多 10:18・空港 10:38", note: "全便予約制。途中の一部停留所を通過", days: BOTH, group: "fukuoka" },
+  { time: "12:32", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 11:40発", note: "降車", days: BOTH, group: "beppu" },
+  { time: "12:40", company: "大分交通", route: "湯布院ライナー Y", origin: "大分空港 11:45発（高速道路直行）", note: "10/25〜11/30。所要55分", days: BOTH, group: "airport" },
+  { time: "12:43", company: "亀の井バス", route: "観光快速ゆふりん", origin: "別府駅前 11:35発（鉄輪・城島高原）", note: "降車。さんふらわあ不寄り", days: ["weekend"], group: "beppu" },
+  { time: "12:48", company: "九州産交バス", route: "九州横断バス3号", origin: "熊本駅前 8:23発・黒川温泉 11:15発", note: "一部予約制。由布院終点", days: BOTH, group: "kurokawa" },
+  { time: "12:59", company: "日田バス", route: "ゆふいん号", origin: "天神 10:25発・博多 10:48・空港 11:08", note: "全便予約制。道の駅ゆふいん経由", days: BOTH, group: "fukuoka" },
+  { time: "13:02", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 12:10発", note: "降車", days: BOTH, group: "beppu" },
+  { time: "13:17", company: "西鉄", route: "ゆふいん号", origin: "天神 10:55発・博多 11:18・空港 11:38", note: "全便予約制。途中の一部停留所を通過", days: BOTH, group: "fukuoka" },
+  { time: "13:20", company: "亀の井バス", route: "オープントップバス ゆのかぜ", origin: "別府駅前 12:15発（タワー・堀田・高速道路・エコーライン）", note: "予約制。2026/10/7〜12/13。約65分", days: BOTH, group: "beppu" },
+  { time: "13:22", company: "亀の井バス", route: "37 牧の戸峠線", origin: "牧の戸峠 12:05発（夢大吊橋・道の駅ゆふいん）", note: "降車。4/4〜11/29の土日祝のみ", days: ["weekend"], group: "beppu" },
+  { time: "13:32", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 12:40発", note: "降車", days: BOTH, group: "beppu" },
+  { time: "13:47", company: "亀の井バス", route: "ゆふいん号", origin: "天神 11:25発・博多 11:48・空港 12:08", note: "全便予約制。途中の一部停留所を通過", days: BOTH, group: "fukuoka" },
+  { time: "14:17", company: "西鉄", route: "ゆふいん号", origin: "天神 11:55発・博多 12:18・空港 12:38", note: "全便予約制。途中の一部停留所を通過", days: BOTH, group: "fukuoka" },
+  { time: "14:32", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 13:40発", note: "降車", days: ["weekday"], group: "beppu" },
+  { time: "14:38", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 13:40発（志高湖畔経由）", note: "降車", days: ["weekend"], group: "beppu" },
+  { time: "14:59", company: "西鉄", route: "ゆふいん号", origin: "天神 12:25発・博多 12:48・空港 13:08", note: "全便予約制。道の駅ゆふいん経由", days: BOTH, group: "fukuoka" },
+  { time: "15:00", company: "大分交通", route: "湯布院ライナー Y", origin: "大分空港 14:05発（高速道路直行）", note: "所要55分", days: BOTH, group: "airport" },
+  { time: "15:32", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 14:40発", note: "降車", days: BOTH, group: "beppu" },
+  { time: "15:47", company: "亀の井バス", route: "ゆふいん号", origin: "天神 13:25発・博多 13:48・空港 14:08", note: "全便予約制。途中の一部停留所を通過", days: BOTH, group: "fukuoka" },
+  { time: "16:02", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 15:10発", note: "降車", days: BOTH, group: "beppu" },
+  { time: "16:13", company: "亀の井バス", route: "観光快速ゆふりん", origin: "別府駅前 15:05発（鉄輪・城島高原）", note: "降車。さんふらわあ不寄り", days: ["weekend"], group: "beppu" },
+  { time: "16:32", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 15:40発", note: "降車", days: BOTH, group: "beppu" },
+  { time: "16:33", company: "九州産交バス", route: "九州横断バス7号", origin: "熊本駅前 12:08発・黒川温泉 15:00発", note: "一部予約制。別府へ続行", days: BOTH, group: "kurokawa" },
+  { time: "16:45", company: "亀の井バス", route: "37 牧の戸峠線", origin: "牧の戸峠 15:28発（夢大吊橋・道の駅ゆふいん）", note: "降車。4/4〜11/29の土日祝のみ", days: ["weekend"], group: "beppu" },
+  { time: "16:50", company: "亀の井バス", route: "オープントップバス ゆのかぜ", origin: "別府駅前 15:45発（タワー・堀田・高速道路・エコーライン）", note: "予約制。2026/10/7〜12/13。約65分", days: BOTH, group: "beppu" },
+  { time: "16:59", company: "亀の井バス", route: "ゆふいん号", origin: "天神 14:25発・博多 14:48・空港 15:08", note: "全便予約制。道の駅ゆふいん経由", days: BOTH, group: "fukuoka" },
+  { time: "17:00", company: "大分交通", route: "湯布院ライナー Y", origin: "大分空港 16:05発（高速道路直行）", note: "所要55分", days: BOTH, group: "airport" },
+  { time: "17:13", company: "亀の井バス", route: "観光快速ゆふりん", origin: "別府駅前 16:05発（鉄輪・城島高原）", note: "降車。さんふらわあ不寄り", days: ["weekend"], group: "beppu" },
+  { time: "17:17", company: "亀の井バス", route: "ゆふいん号", origin: "天神 14:55発・博多 15:18・空港 15:38", note: "全便予約制。途中の一部停留所を通過", days: BOTH, group: "fukuoka" },
+  { time: "17:32", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 16:40発", note: "降車", days: BOTH, group: "beppu" },
+  { time: "17:47", company: "亀の井バス", route: "ゆふいん号", origin: "天神 15:25発・博多 15:48・空港 16:08", note: "全便予約制。途中の一部停留所を通過", days: BOTH, group: "fukuoka" },
+  { time: "18:30", company: "大分交通", route: "湯布院ライナー Y", origin: "大分空港 17:35発（高速道路直行）", note: "所要55分", days: BOTH, group: "airport" },
+  { time: "18:32", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 17:40発", note: "降車", days: ["weekend"], group: "beppu" },
+  { time: "18:33", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 17:40発", note: "降車", days: ["weekday"], group: "beppu" },
+  { time: "18:59", company: "亀の井バス", route: "ゆふいん号", origin: "天神 16:25発・博多 16:48・空港 17:08", note: "全便予約制。道の駅ゆふいん経由", days: BOTH, group: "fukuoka" },
+  { time: "19:12", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 18:20発", note: "降車。ロープウェイ不寄り", days: ["weekday"], group: "beppu" },
+];
+
+const DAY_OPTS = [
+  { value: "weekday", label: "平日" },
+  { value: "weekend", label: "土日祝" }
+];
+const GROUP_OPTS = [
+  { value: "all", label: "すべて" },
+  { value: "kurokawa", label: "黒川・熊本" },
+  { value: "fukuoka", label: "福岡" },
+  { value: "beppu", label: "別府・路線" },
+  { value: "airport", label: "空港" }
+];
+
+let day = "weekday";
+let group = "all";
+
+function filterArrivals(d, g) {
+  return arrivals.filter(function (a) {
+    if (a.days.indexOf(d) === -1) return false;
+    if (g !== "all" && a.group !== g) return false;
+    return true;
+  });
+}
+
+function esc(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function rowsHtml(list) {
+  return list.map(function (a) {
+    return "<tr>" +
+      '<td class="time">' + esc(a.time) + "</td>" +
+      "<td>" + esc(a.company) + "</td>" +
+      "<td>" + esc(a.route) + "</td>" +
+      "<td>" + esc(a.origin) + "</td>" +
+      "<td>" + esc(a.note) + "</td>" +
+      "</tr>";
+  }).join("");
+}
+
+function renderSeg(container, opts, current, countFn, onPick) {
+  container.innerHTML = opts.map(function (o) {
+    var pressed = o.value === current;
+    var n = countFn(o.value);
+    return '<button type="button" aria-pressed="' + pressed + '" data-value="' + o.value + '">' +
+      esc(o.label) + '<span class="count">(' + n + ")</span></button>";
+  }).join("");
+  Array.prototype.forEach.call(container.querySelectorAll("button"), function (btn) {
+    btn.addEventListener("click", function () {
+      onPick(btn.getAttribute("data-value"));
+    });
+  });
+}
+
+function render() {
+  var daySeg = document.getElementById("day-seg");
+  var groupSeg = document.getElementById("group-seg");
+  renderSeg(daySeg, DAY_OPTS, day, function (v) {
+    return filterArrivals(v, group).length;
+  }, function (v) { day = v; render(); });
+  renderSeg(groupSeg, GROUP_OPTS, group, function (v) {
+    return filterArrivals(day, v).length;
+  }, function (v) { group = v; render(); });
+
+  var rows = filterArrivals(day, group);
+  var body = document.getElementById("chrono-body");
+  var empty = document.getElementById("chrono-empty");
+  var meta = document.getElementById("result-meta");
+  var dayLabel = day === "weekday" ? "平日" : "土日祝";
+  var groupLabel = GROUP_OPTS.filter(function (o) { return o.value === group; })[0].label;
+  meta.textContent = dayLabel + "・" + groupLabel + "： " + rows.length + " 便";
+  if (rows.length === 0) {
+    body.innerHTML = "";
+    empty.hidden = false;
+  } else {
+    empty.hidden = true;
+    body.innerHTML = rowsHtml(rows);
+  }
+
+  document.getElementById("yufuingo-body").innerHTML =
+    rowsHtml(filterArrivals("weekday", "fukuoka"));
+  document.getElementById("line36-body").innerHTML =
+    rowsHtml(filterArrivals(day, "beppu").filter(function (a) {
+      return a.route.indexOf("36") === 0;
+    }));
+  document.getElementById("yufurin-body").innerHTML =
+    rowsHtml(filterArrivals(day, "beppu").filter(function (a) {
+      return a.route.indexOf("ゆふりん") !== -1;
+    }));
+}
+
+render();
+</script>
+</body>
+</html>
