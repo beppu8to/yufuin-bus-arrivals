@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>由布院駅前バスセンター 到着時刻</title>
+<title>由布院 バス・JR到着時刻</title>
 <style>
   :root {
     --bg: #f6f4ef;
@@ -19,6 +19,20 @@
     --chip-on: #1f5c4a;
     --chip-on-fg: #fff;
     --shadow: 0 1px 2px rgba(0,0,0,.06);
+    --c-36: #0f6b52;
+    --c-36-bg: #e7f5f0;
+    --c-yufurin: #b45309;
+    --c-yufurin-bg: #fff1e0;
+    --c-odan: #9a3412;
+    --c-odan-bg: #fde8dc;
+    --c-yunokaze: #0e7490;
+    --c-yunokaze-bg: #def4f8;
+    --c-yufuingo: #6d28d9;
+    --c-yufuingo-bg: #f1e9fb;
+    --c-liner: #1d4ed8;
+    --c-liner-bg: #e7edff;
+    --c-37: #4d7c0f;
+    --c-37-bg: #eef6d6;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -50,6 +64,37 @@
     max-width: 960px;
     margin: 0 auto;
     padding: 1rem;
+  }
+  .mode-tabs {
+    display: flex;
+    gap: .45rem;
+    margin: 0 0 1rem;
+    padding: .3rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+  }
+  .mode-tabs button {
+    appearance: none;
+    flex: 1;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--ink);
+    border-radius: 10px;
+    padding: .7rem .6rem;
+    font-size: 1.02rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+  }
+  .mode-tabs button[aria-selected="true"] {
+    background: var(--accent);
+    color: #fff;
+  }
+  .mode-tabs button:focus-visible {
+    outline: 3px solid #9ecfbf;
+    outline-offset: 2px;
   }
   .callout {
     background: var(--warn-bg);
@@ -146,6 +191,66 @@
     font-size: .9rem;
     margin: 0 0 .5rem;
   }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    margin: 0 0 .75rem;
+  }
+  .legend[hidden] { display: none; }
+  .rte-badge {
+    display: inline-block;
+    border-radius: 999px;
+    padding: .15rem .55rem;
+    font-size: .82rem;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: .01em;
+    color: #fff;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+  .rte-36 { background: var(--c-36); color: #fff; }
+  .rte-yufurin { background: var(--c-yufurin); color: #fff; }
+  .rte-odan { background: var(--c-odan); color: #fff; }
+  .rte-yunokaze { background: var(--c-yunokaze); color: #fff; }
+  .rte-yufuingo { background: var(--c-yufuingo); color: #fff; }
+  .rte-liner { background: var(--c-liner); color: #fff; }
+  .rte-37 { background: var(--c-37); color: #fff; }
+  tr.rte-36 { background: var(--c-36-bg); }
+  tr.rte-yufurin { background: var(--c-yufurin-bg); }
+  tr.rte-odan { background: var(--c-odan-bg); }
+  tr.rte-yunokaze { background: var(--c-yunokaze-bg); }
+  tr.rte-yufuingo { background: var(--c-yufuingo-bg); }
+  tr.rte-liner { background: var(--c-liner-bg); }
+  tr.rte-37 { background: var(--c-37-bg); }
+  tr.rte-36 td.time { box-shadow: inset 5px 0 0 var(--c-36); }
+  tr.rte-yufurin td.time { box-shadow: inset 5px 0 0 var(--c-yufurin); }
+  tr.rte-odan td.time { box-shadow: inset 5px 0 0 var(--c-odan); }
+  tr.rte-yunokaze td.time { box-shadow: inset 5px 0 0 var(--c-yunokaze); }
+  tr.rte-yufuingo td.time { box-shadow: inset 5px 0 0 var(--c-yufuingo); }
+  tr.rte-liner td.time { box-shadow: inset 5px 0 0 var(--c-liner); }
+  tr.rte-37 td.time { box-shadow: inset 5px 0 0 var(--c-37); }
+  tr.kind-limited { background: #f7f1e8; }
+  tr.kind-limited td.time { box-shadow: inset 5px 0 0 #8a6a3b; }
+  .kind-badge {
+    display: inline-block;
+    border-radius: 999px;
+    padding: .12rem .5rem;
+    font-size: .82rem;
+    font-weight: 700;
+    background: #8a6a3b;
+    color: #fff;
+  }
+  .kind-local {
+    display: inline-block;
+    border-radius: 999px;
+    padding: .12rem .5rem;
+    font-size: .82rem;
+    font-weight: 700;
+    background: #3d5a4c;
+    color: #fff;
+  }
   .table-wrap {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -229,12 +334,14 @@
     th, td { padding: .55rem .5rem; font-size: .9rem; }
     td.time { font-size: 1rem; }
     .seg button { padding: .5rem .75rem; font-size: .88rem; }
+    .rte-badge, .kind-badge, .kind-local { font-size: .78rem; padding: .18rem .48rem; white-space: normal; }
+    .mode-tabs button { font-size: .98rem; padding: .8rem .5rem; }
   }
   @media print {
     body { background: #fff; font-size: 11pt; }
     header { background: #fff; color: #000; border-bottom: 2px solid #000; padding: .5rem 0; }
     .callout { border-color: #999; background: #fff; color: #000; }
-    nav.toc, .controls, .top-link { display: none !important; }
+    nav.toc, .controls, .top-link, .mode-tabs { display: none !important; }
     section.card {
       break-inside: avoid;
       box-shadow: none;
@@ -245,21 +352,31 @@
     table { min-width: 0; }
     a { color: #000; text-decoration: none; }
     .sources a::after { content: " (" attr(href) ")"; font-size: 8pt; word-break: break-all; }
+    .rte-badge, .kind-badge, .kind-local { color: #000; background: #eee; border: 1px solid #999; }
+    tr.rte-36, tr.rte-yufurin, tr.rte-odan, tr.rte-yunokaze, tr.rte-yufuingo, tr.rte-liner, tr.rte-37, tr.kind-limited {
+      background: #fff;
+    }
   }
 </style>
 </head>
 <body>
 <header>
-  <h1>由布院駅前バスセンター 到着時刻</h1>
+  <h1>由布院 バス・JR到着時刻</h1>
   <p>宿の送迎向け・到着のみの時間順一覧</p>
 </header>
 <main>
+  <div class="mode-tabs" role="tablist" aria-label="交通手段">
+    <button type="button" role="tab" id="tab-bus" aria-controls="panel-bus" aria-selected="true">バス</button>
+    <button type="button" role="tab" id="tab-jr" aria-controls="panel-jr" aria-selected="false">JR</button>
+  </div>
+
+  <div id="panel-bus" role="tabpanel" aria-labelledby="tab-bus">
   <div class="callout">
     <strong>2026年11月6日確認、到着のみ</strong>
     公式時刻表から転記した予定到着です。道路事情で遅れることがあり、改正もあるので、出発前に各社の最新を確認してください。お盆（8月13日〜15日）と年末年始（12月29日〜1月3日）の路線バスは土日祝ダイヤです。発車時刻は載せていません。
   </div>
 
-  <nav class="toc" aria-label="目次">
+  <nav class="toc" aria-label="バスの目次">
     <h2>目次</h2>
     <ul>
       <li><a href="#chrono">時間順の到着一覧</a></li>
@@ -282,6 +399,7 @@
       <div class="seg" id="group-seg" role="group" aria-label="方面"></div>
     </div>
     <p class="meta" id="result-meta"></p>
+    <div class="legend" id="route-legend" hidden></div>
     <div class="table-wrap">
       <table>
         <thead>
@@ -406,6 +524,100 @@
       <li><span class="site">beppuni.com</span><a href="https://www.beppuni.com/bus/time_k/y1.pdf">由布院駅前バスセンター 発車時刻表（2026/10/01現在）</a></li>
     </ul>
   </section>
+  </div>
+
+  <div id="panel-jr" role="tabpanel" aria-labelledby="tab-jr" hidden>
+  <div class="callout">
+    <strong>2026年11月6日確認、JR由布院駅への到着のみ</strong>
+    久大本線のみです。豊肥本線は由布院駅に入りません。JR九州の駅別時刻表（発車）とYahoo!路線情報の始発印、駅探の隣駅区間の到着、特急の着発表から組み立てています。確認した範囲では平日と土日祝は同じダイヤです。由布院始発（到着なし）は載せていません。特急ゆふいんの森3号・4号は運転日によって同じ時刻の特急ゆふ（73号・74号）になることがあります。ダイヤ改正や遅れがあるので、出発前に公式を確認してください。
+  </div>
+
+  <nav class="toc" aria-label="JRの目次">
+    <h2>目次</h2>
+    <ul>
+      <li><a href="#jr-chrono">時間順の到着一覧</a></li>
+      <li><a href="#jr-oita">大分・別府方面から</a></li>
+      <li><a href="#jr-hita">日田・博多方面から</a></li>
+      <li><a href="#jr-limited">特急ゆふ・ゆふいんの森</a></li>
+      <li><a href="#jr-sources">出典</a></li>
+    </ul>
+  </nav>
+
+  <section class="card" id="jr-chrono">
+    <h2>時間順の到着一覧</h2>
+    <p class="caption">普通25便、特急10便。由布院駅で降りる送迎向けです。</p>
+    <div class="controls">
+      <div class="seg" id="jr-day-seg" role="group" aria-label="曜日"></div>
+      <div class="seg" id="jr-group-seg" role="group" aria-label="方面"></div>
+    </div>
+    <p class="meta" id="jr-result-meta"></p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>到着</th>
+            <th>会社</th>
+            <th>列車</th>
+            <th>起点・経由</th>
+            <th>備考</th>
+          </tr>
+        </thead>
+        <tbody id="jr-chrono-body"></tbody>
+      </table>
+      <div class="empty" id="jr-chrono-empty" hidden>該当する便がありません。</div>
+    </div>
+  </section>
+
+  <section class="card" id="jr-oita">
+    <h2>大分・別府方面から</h2>
+    <p class="body-text">久大本線の下り側（大分・別府から来る列車）です。多くは由布院終点で、一部は日田・豊後森・博多へ続きます。上の平日／土日祝切り替えに連動します。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>到着</th><th>会社</th><th>列車</th><th>起点・経由</th><th>備考</th></tr></thead>
+        <tbody id="jr-oita-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card" id="jr-hita">
+    <h2>日田・博多方面から</h2>
+    <p class="body-text">久大本線の上り側（日田・久留米・博多から来る列車）です。普通は大分へ続行し、特急は別府・大分へ続くか由布院終点です。朝6:42着の普通は豊後森始発です。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>到着</th><th>会社</th><th>列車</th><th>起点・経由</th><th>備考</th></tr></thead>
+        <tbody id="jr-hita-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card" id="jr-limited">
+    <h2>特急ゆふ・ゆふいんの森</h2>
+    <p class="body-text">2026年3月14日改正、2026年10月23日時点の全停車駅時刻です。ゆふいんの森1号（11:31着）と5号（16:50着）は由布院終点で、2号（12:01発）と6号（17:17発）は由布院始発なので到着一覧には入れていません。3号・4号は運転日によりゆふ73号・74号が同じ時刻で走ります。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>到着</th><th>会社</th><th>列車</th><th>起点・経由</th><th>備考</th></tr></thead>
+        <tbody id="jr-limited-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card" id="jr-sources">
+    <h2>出典</h2>
+    <ul class="sources">
+      <li><span class="site">jrkyushu-timetable.jp</span><a href="https://www.jrkyushu-timetable.jp/cgi-bin/jr-k_time/tt_dep.cgi?c=28814">JR九州 由布院駅 駅別時刻表（2026年11月6日）</a></li>
+      <li><span class="site">jrkyushu-timetable.jp</span><a href="https://www.jrkyushu-timetable.jp/cgi-bin/sp/sp-tt_dep.cgi/2874202/">JR九州 大分駅 久大本線 由布院・日田方面</a></li>
+      <li><span class="site">jrkyushu-timetable.jp</span><a href="https://www.jrkyushu-timetable.jp/cgi-bin/sp/sp-tt_dep.cgi/2880401/">JR九州 豊後森駅 久大本線 由布院・大分方面</a></li>
+      <li><span class="site">transit.yahoo.co.jp</span><a href="https://transit.yahoo.co.jp/timetable/28814/2520">Yahoo!路線情報 由布院駅 博多・日田方面（始発印）</a></li>
+      <li><span class="site">transit.yahoo.co.jp</span><a href="https://transit.yahoo.co.jp/timetable/28814/2521">Yahoo!路線情報 由布院駅 大分・別府方面（始発印）</a></li>
+      <li><span class="site">ekitan.com</span><a href="https://ekitan.com/transit/section/sf-8126/st-8177">駅探 南由布→由布院 区間時刻</a></li>
+      <li><span class="site">ekitan.com</span><a href="https://ekitan.com/transit/section/sf-7925/st-8177">駅探 野矢→由布院 区間時刻</a></li>
+      <li><span class="site">ekitan.com</span><a href="https://ekitan.com/transit/section/sf-8002/st-8177">駅探 日田→由布院 区間時刻</a></li>
+      <li><span class="site">ekitan.com</span><a href="https://ekitan.com/transit/first/sf-7427/st-8177">駅探 大分→由布院 始発</a></li>
+      <li><span class="site">jr-group.jp</span><a href="https://jr-group.jp/yufu-timetable/">特急「ゆふ」「ゆふいんの森」全停車駅時刻表（2026.10.23）</a></li>
+      <li><span class="site">jrkyushu.co.jp</span><a href="https://www.jrkyushu.co.jp/trains/yufuinnomori/">JR九州 特急ゆふいんの森（2026年3月14日改正）</a></li>
+    </ul>
+  </section>
+  </div>
 
   <footer>
     <a class="top-link" href="#">先頭へ</a>
@@ -476,6 +688,44 @@ const arrivals = [
   { time: "19:12", company: "亀の井バス", route: "36 湯布院線", origin: "別府駅西口 18:20発", note: "降車。ロープウェイ不寄り", days: ["weekday"], group: "beppu" },
 ];
 
+const jrArrivals = [
+  { time: "6:42", company: "JR九州", route: "普通", origin: "豊後森 6:12発（野矢 6:31発）", note: "大分へ続行（6:45発）", days: BOTH, group: "hita", kind: "local" },
+  { time: "7:30", company: "JR九州", route: "普通", origin: "大分 6:15発（南由布 7:26発）", note: "日田へ続行（7:32発）", days: BOTH, group: "oita", kind: "local" },
+  { time: "7:59", company: "JR九州", route: "普通", origin: "大分 7:01発（南由布 7:55発）", note: "由布院終点", days: BOTH, group: "oita", kind: "local" },
+  { time: "8:26", company: "JR九州", route: "普通", origin: "日田 7:18発（野矢 8:15発）", note: "大分へ続行（8:39発）", days: BOTH, group: "hita", kind: "local" },
+  { time: "8:37", company: "JR九州", route: "普通", origin: "大分 7:26発（南由布 8:33発）", note: "由布院終点", days: BOTH, group: "oita", kind: "local" },
+  { time: "9:06", company: "JR九州", route: "特急ゆふ2号", origin: "大分 8:20発", note: "博多へ続行（9:08発）", days: BOTH, group: "oita", kind: "limited" },
+  { time: "10:02", company: "JR九州", route: "特急ゆふ1号", origin: "博多 7:43発・日田 9:09発", note: "別府へ続行（10:05発）", days: BOTH, group: "hita", kind: "limited" },
+  { time: "10:29", company: "JR九州", route: "普通", origin: "大分 9:22発（南由布 10:25発）", note: "由布院終点", days: BOTH, group: "oita", kind: "local" },
+  { time: "11:31", company: "JR九州", route: "特急ゆふいんの森1号", origin: "博多 9:17発・日田 10:37発", note: "由布院終点", days: BOTH, group: "hita", kind: "limited" },
+  { time: "11:39", company: "JR九州", route: "普通", origin: "大分 10:35発（南由布 11:34発）", note: "由布院終点", days: BOTH, group: "oita", kind: "local" },
+  { time: "12:27", company: "JR九州", route: "特急ゆふいんの森3号", origin: "博多 10:11発・日田 11:33発", note: "別府へ続行（12:32発）。運転日によりゆふ73号", days: BOTH, group: "hita", kind: "limited" },
+  { time: "13:34", company: "JR九州", route: "普通", origin: "日田 12:29発（野矢 13:23発）", note: "大分へ続行（13:46発）", days: BOTH, group: "hita", kind: "local" },
+  { time: "13:38", company: "JR九州", route: "普通", origin: "大分 12:39発（南由布 13:34発）", note: "豊後森へ続行（13:42発）", days: BOTH, group: "oita", kind: "local" },
+  { time: "14:12", company: "JR九州", route: "特急ゆふ4号", origin: "別府 13:13発・大分 13:25発", note: "博多へ続行（14:15発）", days: BOTH, group: "oita", kind: "limited" },
+  { time: "14:39", company: "JR九州", route: "特急ゆふ3号", origin: "博多 12:14発・日田 13:39発", note: "別府へ続行（14:45発）", days: BOTH, group: "hita", kind: "limited" },
+  { time: "14:54", company: "JR九州", route: "普通", origin: "大分 13:48発（南由布 14:50発）", note: "由布院終点", days: BOTH, group: "oita", kind: "local" },
+  { time: "15:25", company: "JR九州", route: "普通", origin: "大分 14:19発（南由布 15:21発）", note: "由布院終点", days: BOTH, group: "oita", kind: "local" },
+  { time: "15:46", company: "JR九州", route: "特急ゆふいんの森4号", origin: "別府 14:36発・大分 14:58発", note: "博多へ続行（15:56発）。運転日によりゆふ74号", days: BOTH, group: "oita", kind: "limited" },
+  { time: "15:52", company: "JR九州", route: "普通", origin: "日田 14:39発（野矢 15:41発）", note: "大分へ続行（16:01発）", days: BOTH, group: "hita", kind: "local" },
+  { time: "16:15", company: "JR九州", route: "普通", origin: "大分 15:12発（南由布 16:11発）", note: "由布院終点", days: BOTH, group: "oita", kind: "local" },
+  { time: "16:50", company: "JR九州", route: "特急ゆふいんの森5号", origin: "博多 14:38発・日田 15:56発", note: "由布院終点", days: BOTH, group: "hita", kind: "limited" },
+  { time: "17:00", company: "JR九州", route: "普通", origin: "大分 16:02発（南由布 16:56発）", note: "由布院終点", days: BOTH, group: "oita", kind: "local" },
+  { time: "17:45", company: "JR九州", route: "普通", origin: "大分 16:45発（南由布 17:40発）", note: "由布院終点", days: BOTH, group: "oita", kind: "local" },
+  { time: "18:11", company: "JR九州", route: "普通", origin: "日田 16:55発（野矢 17:59発）", note: "大分へ続行（18:23発）", days: BOTH, group: "hita", kind: "local" },
+  { time: "18:23", company: "JR九州", route: "普通", origin: "大分 17:21発（南由布 18:19発）", note: "由布院終点", days: BOTH, group: "oita", kind: "local" },
+  { time: "19:16", company: "JR九州", route: "普通", origin: "大分 18:18発（南由布 19:12発）", note: "由布院終点", days: BOTH, group: "oita", kind: "local" },
+  { time: "19:24", company: "JR九州", route: "特急ゆふ6号", origin: "別府 18:09発・大分 18:36発", note: "博多へ続行（19:27発）", days: BOTH, group: "oita", kind: "limited" },
+  { time: "19:26", company: "JR九州", route: "普通", origin: "日田 18:13発（野矢 19:14発）", note: "大分へ続行（19:37発）", days: BOTH, group: "hita", kind: "local" },
+  { time: "20:25", company: "JR九州", route: "普通", origin: "日田 19:19発（野矢 20:14発）", note: "大分へ続行（20:27発）", days: BOTH, group: "hita", kind: "local" },
+  { time: "20:35", company: "JR九州", route: "普通", origin: "大分 19:30発（南由布 20:31発）", note: "由布院終点", days: BOTH, group: "oita", kind: "local" },
+  { time: "20:49", company: "JR九州", route: "特急ゆふ5号", origin: "博多 18:30発・日田 19:52発", note: "大分へ続行（20:54発）", days: BOTH, group: "hita", kind: "limited" },
+  { time: "21:22", company: "JR九州", route: "普通", origin: "大分 20:18発（南由布 21:18発）", note: "日田へ続行（21:24発）", days: BOTH, group: "oita", kind: "local" },
+  { time: "22:18", company: "JR九州", route: "普通", origin: "日田 20:56発（野矢 22:06発）", note: "大分へ続行（22:27発）", days: BOTH, group: "hita", kind: "local" },
+  { time: "22:55", company: "JR九州", route: "普通", origin: "大分 21:55発（南由布 22:51発）", note: "由布院終点", days: BOTH, group: "oita", kind: "local" },
+  { time: "23:45", company: "JR九州", route: "普通", origin: "大分 22:46発（南由布 23:41発）", note: "由布院終点", days: BOTH, group: "oita", kind: "local" }
+];
+
 const DAY_OPTS = [
   { value: "weekday", label: "平日" },
   { value: "weekend", label: "土日祝" }
@@ -487,12 +737,48 @@ const GROUP_OPTS = [
   { value: "beppu", label: "別府・路線" },
   { value: "airport", label: "空港" }
 ];
+const JR_GROUP_OPTS = [
+  { value: "all", label: "すべて" },
+  { value: "oita", label: "大分・別府から" },
+  { value: "hita", label: "日田・博多から" }
+];
+const ROUTE_LEGEND = [
+  { key: "36", label: "36 湯布院線" },
+  { key: "yufurin", label: "観光快速ゆふりん" },
+  { key: "odan", label: "九州横断バス" },
+  { key: "yunokaze", label: "ゆのかぜ" },
+  { key: "yufuingo", label: "ゆふいん号" },
+  { key: "liner", label: "湯布院ライナー" },
+  { key: "37", label: "37 牧の戸峠線" }
+];
 
 let day = "weekday";
 let group = "all";
+let jrDay = "weekday";
+let jrGroup = "all";
+let mode = "bus";
+
+function routeKey(route) {
+  if (route.indexOf("36") === 0) return "36";
+  if (route.indexOf("ゆふりん") !== -1) return "yufurin";
+  if (route.indexOf("横断") !== -1) return "odan";
+  if (route.indexOf("ゆのかぜ") !== -1) return "yunokaze";
+  if (route.indexOf("ゆふいん号") !== -1) return "yufuingo";
+  if (route.indexOf("ライナー") !== -1) return "liner";
+  if (route.indexOf("37") === 0) return "37";
+  return "";
+}
 
 function filterArrivals(d, g) {
   return arrivals.filter(function (a) {
+    if (a.days.indexOf(d) === -1) return false;
+    if (g !== "all" && a.group !== g) return false;
+    return true;
+  });
+}
+
+function filterJr(d, g) {
+  return jrArrivals.filter(function (a) {
     if (a.days.indexOf(d) === -1) return false;
     if (g !== "all" && a.group !== g) return false;
     return true;
@@ -507,12 +793,34 @@ function esc(s) {
     .replace(/"/g, "&quot;");
 }
 
-function rowsHtml(list) {
+function rowsHtml(list, colored) {
   return list.map(function (a) {
-    return "<tr>" +
+    var key = colored ? routeKey(a.route) : "";
+    var trClass = key ? ' class="rte-' + key + '"' : "";
+    var routeCell = key
+      ? '<span class="rte-badge rte-' + key + '">' + esc(a.route) + "</span>"
+      : esc(a.route);
+    return "<tr" + trClass + ">" +
       '<td class="time">' + esc(a.time) + "</td>" +
       "<td>" + esc(a.company) + "</td>" +
-      "<td>" + esc(a.route) + "</td>" +
+      "<td>" + routeCell + "</td>" +
+      "<td>" + esc(a.origin) + "</td>" +
+      "<td>" + esc(a.note) + "</td>" +
+      "</tr>";
+  }).join("");
+}
+
+function jrRowsHtml(list) {
+  return list.map(function (a) {
+    var isLtd = a.kind === "limited";
+    var trClass = isLtd ? ' class="kind-limited"' : "";
+    var routeCell = isLtd
+      ? '<span class="kind-badge">' + esc(a.route) + "</span>"
+      : '<span class="kind-local">' + esc(a.route) + "</span>";
+    return "<tr" + trClass + ">" +
+      '<td class="time">' + esc(a.time) + "</td>" +
+      "<td>" + esc(a.company) + "</td>" +
+      "<td>" + routeCell + "</td>" +
       "<td>" + esc(a.origin) + "</td>" +
       "<td>" + esc(a.note) + "</td>" +
       "</tr>";
@@ -533,44 +841,111 @@ function renderSeg(container, opts, current, countFn, onPick) {
   });
 }
 
-function render() {
+function renderLegend(show) {
+  var el = document.getElementById("route-legend");
+  if (!show) {
+    el.hidden = true;
+    el.innerHTML = "";
+    return;
+  }
+  el.hidden = false;
+  el.innerHTML = ROUTE_LEGEND.map(function (r) {
+    return '<span class="rte-badge rte-' + r.key + '">' + esc(r.label) + "</span>";
+  }).join("");
+}
+
+function renderBus() {
   var daySeg = document.getElementById("day-seg");
   var groupSeg = document.getElementById("group-seg");
   renderSeg(daySeg, DAY_OPTS, day, function (v) {
     return filterArrivals(v, group).length;
-  }, function (v) { day = v; render(); });
+  }, function (v) { day = v; renderBus(); });
   renderSeg(groupSeg, GROUP_OPTS, group, function (v) {
     return filterArrivals(day, v).length;
-  }, function (v) { group = v; render(); });
+  }, function (v) { group = v; renderBus(); });
 
   var rows = filterArrivals(day, group);
+  var colored = group === "all";
   var body = document.getElementById("chrono-body");
   var empty = document.getElementById("chrono-empty");
   var meta = document.getElementById("result-meta");
   var dayLabel = day === "weekday" ? "平日" : "土日祝";
   var groupLabel = GROUP_OPTS.filter(function (o) { return o.value === group; })[0].label;
   meta.textContent = dayLabel + "・" + groupLabel + "： " + rows.length + " 便";
+  renderLegend(colored);
   if (rows.length === 0) {
     body.innerHTML = "";
     empty.hidden = false;
   } else {
     empty.hidden = true;
-    body.innerHTML = rowsHtml(rows);
+    body.innerHTML = rowsHtml(rows, colored);
   }
 
   document.getElementById("yufuingo-body").innerHTML =
-    rowsHtml(filterArrivals("weekday", "fukuoka"));
+    rowsHtml(filterArrivals("weekday", "fukuoka"), false);
   document.getElementById("line36-body").innerHTML =
     rowsHtml(filterArrivals(day, "beppu").filter(function (a) {
       return a.route.indexOf("36") === 0;
-    }));
+    }), false);
   document.getElementById("yufurin-body").innerHTML =
     rowsHtml(filterArrivals(day, "beppu").filter(function (a) {
       return a.route.indexOf("ゆふりん") !== -1;
+    }), false);
+}
+
+function renderJr() {
+  var daySeg = document.getElementById("jr-day-seg");
+  var groupSeg = document.getElementById("jr-group-seg");
+  renderSeg(daySeg, DAY_OPTS, jrDay, function (v) {
+    return filterJr(v, jrGroup).length;
+  }, function (v) { jrDay = v; renderJr(); });
+  renderSeg(groupSeg, JR_GROUP_OPTS, jrGroup, function (v) {
+    return filterJr(jrDay, v).length;
+  }, function (v) { jrGroup = v; renderJr(); });
+
+  var rows = filterJr(jrDay, jrGroup);
+  var body = document.getElementById("jr-chrono-body");
+  var empty = document.getElementById("jr-chrono-empty");
+  var meta = document.getElementById("jr-result-meta");
+  var dayLabel = jrDay === "weekday" ? "平日" : "土日祝";
+  var groupLabel = JR_GROUP_OPTS.filter(function (o) { return o.value === jrGroup; })[0].label;
+  meta.textContent = dayLabel + "・" + groupLabel + "： " + rows.length + " 便";
+  if (rows.length === 0) {
+    body.innerHTML = "";
+    empty.hidden = false;
+  } else {
+    empty.hidden = true;
+    body.innerHTML = jrRowsHtml(rows);
+  }
+
+  document.getElementById("jr-oita-body").innerHTML =
+    jrRowsHtml(filterJr(jrDay, "oita"));
+  document.getElementById("jr-hita-body").innerHTML =
+    jrRowsHtml(filterJr(jrDay, "hita"));
+  document.getElementById("jr-limited-body").innerHTML =
+    jrRowsHtml(filterJr(jrDay, "all").filter(function (a) {
+      return a.kind === "limited";
     }));
 }
 
-render();
+function setMode(next) {
+  mode = next;
+  var busOn = mode === "bus";
+  document.getElementById("tab-bus").setAttribute("aria-selected", busOn ? "true" : "false");
+  document.getElementById("tab-jr").setAttribute("aria-selected", busOn ? "false" : "true");
+  document.getElementById("panel-bus").hidden = !busOn;
+  document.getElementById("panel-jr").hidden = busOn;
+}
+
+document.getElementById("tab-bus").addEventListener("click", function () { setMode("bus"); });
+document.getElementById("tab-jr").addEventListener("click", function () { setMode("jr"); });
+
+if (location.hash && location.hash.indexOf("jr") === 1) {
+  setMode("jr");
+}
+
+renderBus();
+renderJr();
 </script>
 </body>
 </html>
