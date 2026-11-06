@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
 <title>由布院 バス・JR到着時刻</title>
 <style>
   :root {
@@ -35,7 +36,7 @@
     --c-37-bg: #eef6d6;
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; color-scheme: light; }
   body {
     margin: 0;
     font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
@@ -210,13 +211,34 @@
     white-space: nowrap;
     max-width: 100%;
   }
-  .rte-36 { background: var(--c-36); color: #fff; }
-  .rte-yufurin { background: var(--c-yufurin); color: #fff; }
-  .rte-odan { background: var(--c-odan); color: #fff; }
-  .rte-yunokaze { background: var(--c-yunokaze); color: #fff; }
-  .rte-yufuingo { background: var(--c-yufuingo); color: #fff; }
-  .rte-liner { background: var(--c-liner); color: #fff; }
-  .rte-37 { background: var(--c-37); color: #fff; }
+  .rte-badge.rte-36 { background: var(--c-36); color: #fff; }
+  .rte-badge.rte-yufurin { background: var(--c-yufurin); color: #fff; }
+  .rte-badge.rte-odan { background: var(--c-odan); color: #fff; }
+  .rte-badge.rte-yunokaze { background: var(--c-yunokaze); color: #fff; }
+  .rte-badge.rte-yufuingo { background: var(--c-yufuingo); color: #fff; }
+  .rte-badge.rte-liner { background: var(--c-liner); color: #fff; }
+  .rte-badge.rte-37 { background: var(--c-37); color: #fff; }
+  tr.rte-36,
+  tr.rte-yufurin,
+  tr.rte-odan,
+  tr.rte-yunokaze,
+  tr.rte-yufuingo,
+  tr.rte-liner,
+  tr.rte-37,
+  tr.kind-limited {
+    color: var(--ink);
+  }
+  tr.rte-36 td,
+  tr.rte-yufurin td,
+  tr.rte-odan td,
+  tr.rte-yunokaze td,
+  tr.rte-yufuingo td,
+  tr.rte-liner td,
+  tr.rte-37 td,
+  tr.kind-limited td,
+  td.time {
+    color: var(--ink);
+  }
   tr.rte-36 { background: var(--c-36-bg); }
   tr.rte-yufurin { background: var(--c-yufurin-bg); }
   tr.rte-odan { background: var(--c-odan-bg); }
@@ -269,6 +291,7 @@
     border-bottom: 1px solid var(--line);
     vertical-align: top;
     font-size: .95rem;
+    color: var(--ink);
   }
   th {
     background: var(--accent-soft);
