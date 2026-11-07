@@ -1,8 +1,8 @@
 var SEASONAL_DATA = {
   "schema_version": 1,
-  "checked_at": "2026-11-07T14:02:28+09:00",
+  "checked_at": "2026-11-08T06:50:00+09:00",
   "time_zone": "Asia/Tokyo",
-  "research_date": "2026-11-07",
+  "research_date": "2026-11-08",
   "not_a_live_feed": true,
   "scope": "Known Yufuin special/seasonal train families; not an exhaustive charter/repositioning registry",
   "sources": [
@@ -11,7 +11,7 @@ var SEASONAL_DATA = {
       "url": "https://www.jrkyushu-aruressha.jp/train-status-info",
       "title": "或る列車 運転日・時刻",
       "published_as_of": "2026-07",
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "Times readable; operation-calendar colors are lost by text extraction. Do not interpret all calendar numbers as operating days."
     },
     {
@@ -19,7 +19,7 @@ var SEASONAL_DATA = {
       "url": "https://www.jrkyushu-aruressha.jp/wordpress/wp-content/uploads/2026/07/ae650a979504d47bd55d001cfe766f42.pdf",
       "title": "或る列車 2026年10月～運行分の発売情報",
       "published_as_of": "2026-07-01",
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "Downloaded PDF; page 2 visually read. This is JR企画実施 SALES calendar, not complete operation calendar. White cells/opposite-direction omissions do not prove no train (agency charters)."
     },
     {
@@ -27,7 +27,7 @@ var SEASONAL_DATA = {
       "url": "https://www.jrkyushu-aruressha.jp/news/3983",
       "title": "或る列車 発売告知",
       "published_as_of": "2026-07-01",
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "Valid October 2026-February 2027. March onward detailed dates not yet announced in this notice."
     },
     {
@@ -35,7 +35,7 @@ var SEASONAL_DATA = {
       "url": "https://www.jrkyushu.co.jp/news/__icsFiles/afieldfile/2026/08/21/20260821_Autumn_Temporary_Train_Operation_Plan.pdf",
       "title": "2026秋季臨時列車・D&S運転計画",
       "published_as_of": "2026-08-21",
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "WebFetch full primary text read; raw PDF download returned HTTP403. November Mori3/4 operate 1-29, not an inferred weekend rule."
     },
     {
@@ -43,7 +43,7 @@ var SEASONAL_DATA = {
       "url": "https://www.jrkyushu.co.jp/news/__icsFiles/afieldfile/2026/10/22/20261022_Winter_2026_Special_Train_Operation_Plan_1.pdf",
       "title": "2026冬季臨時列車・D&S運転計画",
       "published_as_of": "2026-10-22",
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "WebFetch full primary text read; raw PDF download HTTP403. Valid December 2026-February 2027."
     },
     {
@@ -51,7 +51,7 @@ var SEASONAL_DATA = {
       "url": "https://www.jrkyushu.co.jp/trains/yufuinnomori/",
       "title": "ゆふいんの森公式",
       "published_as_of": "2026-10-22",
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "Timetable revised 2026-03-14. Confirms replacements with same times/stops; next detailed calendar for March onward expected mid-January 2027."
     },
     {
@@ -59,7 +59,7 @@ var SEASONAL_DATA = {
       "url": "https://www.jrkyushu-timetable.jp/sp/2611/0016/00168001.html?d=20261031&t=2879201",
       "title": "JR公式 ゆふいんの森3号 8003D",
       "published_as_of": null,
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "Full official train detail read: Yufuin 12:27 arrival,12:32 departure; excluded Nov30-Dec4,Jan13-15,18-21. Query contains an October date; use season releases for validity."
     },
     {
@@ -67,7 +67,7 @@ var SEASONAL_DATA = {
       "url": "https://www.jrkyushu-timetable.jp/sp/2610/0016/00166901.html?d=20261004&t=2814402",
       "title": "JR公式 ゆふいんの森4号 8004D",
       "published_as_of": null,
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "Full detail read: Yufuin15:46 arrival,15:56 departure. This older edition covers autumn, not winter date validity."
     },
     {
@@ -75,7 +75,7 @@ var SEASONAL_DATA = {
       "url": "https://www.jrkyushu.co.jp/trains/yufuinnomori/__icsFiles/afieldfile/2026/08/18/20260818_yuhuin_no_mori_train_plan_0919_1.pdf",
       "title": "ゆふいんの森9月19日以降の運転計画",
       "published_as_of": "2026-08-18",
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "Repair-related Jul31-Sep18 replacement ended; Sep19-30 regular Mori3/4 restored, October onward seasonal calendar. Do not perpetuate summer disruption."
     },
     {
@@ -83,7 +83,7 @@ var SEASONAL_DATA = {
       "url": "https://www.jrkyushu-kanpachiichiroku.jp/info/",
       "title": "かんぱち・いちろく 運行ルート・時刻",
       "published_as_of": null,
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "Calendar heading Jul17 2026-Feb27 2027 including JR and agency products. Color/date body not recoverable by text fetch. Pattern MonThuSat/TueFriSun is not sufficient exact-day evidence."
     },
     {
@@ -91,7 +91,7 @@ var SEASONAL_DATA = {
       "url": "https://www.jrkyushu-kanpachiichiroku.jp/reserve/",
       "title": "かんぱち・いちろく 行程",
       "published_as_of": null,
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "March14 2026 timetable: Kanpachi Yufuin15:41 arrival alight only; Ichiroku Yufuin12:27 departure board only. Opposite station event times not published in readable text."
     },
     {
@@ -99,7 +99,7 @@ var SEASONAL_DATA = {
       "url": "https://www.jrkyushu-kanpachiichiroku.jp/pdf/2026070101.pdf",
       "title": "かんぱち・いちろく2026年10月～運行分の発売情報",
       "published_as_of": "2026-07-01",
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "Primary PDF text read through WebFetch. Raw download403; calendar colors lost. Cannot confirm specific dates from this extraction."
     },
     {
@@ -107,7 +107,7 @@ var SEASONAL_DATA = {
       "url": "https://www.jrkyushu-kanpachiichiroku.jp/news/",
       "title": "かんぱち・いちろく新着情報",
       "published_as_of": null,
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "Latest listed Oct22 seat availability notification; no November cancellation seen in this listing. This is not proof of live normal operation."
     },
     {
@@ -115,7 +115,7 @@ var SEASONAL_DATA = {
       "url": "https://prtimes.jp/main/html/rd/p/000001159.000037933.html",
       "title": "JR九州配信 ななつ星 新コース",
       "published_as_of": "2026-03-26",
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "JR Kyushu-authored primary distributed release; exact tour departure dates in text; explicitly excludes agency-operated departures."
     },
     {
@@ -123,7 +123,7 @@ var SEASONAL_DATA = {
       "url": "https://www.cruisetrain-sevenstars.jp/news/3332/",
       "title": "ななつ星2026秋冬発売",
       "published_as_of": "2026-03-27",
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "Premium B tour Nov4-8; rail days Nov7-8. Do not confuse tour first day with Yufuin station day."
     },
     {
@@ -131,7 +131,7 @@ var SEASONAL_DATA = {
       "url": "https://www.cruisetrain-sevenstars.jp/news/3392/",
       "title": "ななつ星追加出発日",
       "published_as_of": "2026-05-16",
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "Adds Yufuin course Dec15-18,2026. This extra must not be omitted from original March release dates."
     },
     {
@@ -139,7 +139,7 @@ var SEASONAL_DATA = {
       "url": "https://www.cruisetrain-sevenstars.jp/news/3497/",
       "title": "ななつ星運行再開",
       "published_as_of": "2026-07-31",
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "Operation resumed Aug4; does not by itself establish present-day running."
     },
     {
@@ -147,7 +147,7 @@ var SEASONAL_DATA = {
       "url": "https://www.cruisetrain-sevenstars.jp/_mg/wp-content/themes/cruisetrain.wp/common/pdf/CT29_Japanese.pdf",
       "title": "ななつ星第29期秋冬パンフレット",
       "published_as_of": null,
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "WebFetch text is badly garbled/OCR. Raw PDF403. Candidate Waita and Premium B Yufuin14:58/18:35 seen but not visually verified; do NOT promote these as confirmed primary train times."
     },
     {
@@ -155,7 +155,7 @@ var SEASONAL_DATA = {
       "url": "https://www.cruisetrain-sevenstars.jp/course/29_yufuin.php",
       "title": "ななつ星第29期由布院コース",
       "published_as_of": "2026-04-01",
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "Day2 Yufuin overnight; day3 guests reboard at Oita after bus transfer, NOT Yufuin. Train itinerary/times/calendar graphics not readable in text."
     },
     {
@@ -163,7 +163,7 @@ var SEASONAL_DATA = {
       "url": "https://www.cruisetrain-sevenstars.jp/course/29_waita.php",
       "title": "ななつ星第29期わいたコース",
       "published_as_of": "2026-04-01",
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "Route Hakata-Kudai-Oita then HoHi line. Timetable graphics not extracted."
     },
     {
@@ -171,7 +171,7 @@ var SEASONAL_DATA = {
       "url": "https://www.qualita-travel.com/domestic/tour/sevenstars_nov2026_charter.html",
       "title": "企画実施会社QUALITA 2026年11月27日発ななつ星貸切",
       "published_as_of": null,
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "Primary tour-organizer source (not JR): Nov28 rail day, Yufuin14:58頃 arrival18:35頃 departure; train continues toward Oita. Explicit additional charter beyond JR departures."
     },
     {
@@ -179,7 +179,7 @@ var SEASONAL_DATA = {
       "url": "https://www.jrkyushu.co.jp/trains/info/oita.html",
       "title": "JR九州大分エリア運行情報",
       "published_as_of": null,
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "Fetched text only maintenance fallback; live Kudai/Yufu/Mori status unknown, not proof operator website actually down."
     },
     {
@@ -187,7 +187,7 @@ var SEASONAL_DATA = {
       "url": "https://www.jrkyushu.co.jp/trains/info/",
       "title": "JR九州運行情報",
       "published_as_of": null,
-      "checked_at": "2026-11-07T14:02:28+09:00",
+      "checked_at": "2026-11-08T06:50:00+09:00",
       "notes": "Same maintenance-text fallback. No private/internal endpoint or TrainNavi scraping used."
     }
   ],
@@ -2070,7 +2070,7 @@ var SEASONAL_DATA = {
     },
     {
       "train_id": "aru_pm",
-      "planned_status": "scheduled",
+      "planned_status": "unconfirmed",
       "live_status": "unconfirmed",
       "arrival": null,
       "departure": "15:00",
@@ -2114,11 +2114,11 @@ var SEASONAL_DATA = {
       "live_status": "unconfirmed",
       "arrival": null,
       "departure": null,
-      "note": "Rail trip planned Nov7-8, Yufuin station time/date needs visual confirmation"
+      "note": "Nov8 is a known rail day of the Nov4–8 Premium B tour, but Yufuin station times remain unverified"
     },
     {
       "train_id": "sevenstars_qualita_1128",
-      "planned_status": "unconfirmed",
+      "planned_status": "not_scheduled",
       "live_status": "unconfirmed",
       "arrival": "14:58",
       "departure": "18:35",

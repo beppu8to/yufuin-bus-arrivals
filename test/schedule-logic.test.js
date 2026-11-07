@@ -312,8 +312,25 @@ assert.ok(card.indexOf("或る列車 午前便") !== -1);
 assert.ok(card.indexOf("運転予定") !== -1);
 assert.ok(card.indexOf("運行状況未確認") !== -1);
 assert.ok(card.indexOf("平常運転") === -1);
-assert.ok(card.indexOf("2026-11-07 14:02 JST") !== -1);
-assert.strictEqual(seasonal.checked_at, "2026-11-07T14:02:28+09:00");
+assert.ok(card.indexOf("2026-11-08 06:50 JST") !== -1);
+assert.strictEqual(seasonal.checked_at, "2026-11-08T06:50:00+09:00");
+assert.strictEqual(seasonal.research_date, "2026-11-08");
+var todayById = {};
+seasonal.today.forEach(function (row) { todayById[row.train_id] = row; });
+["mori1", "mori2", "mori3", "mori4", "mori5", "mori6", "aru_am"].forEach(function (id) {
+  assert.strictEqual(todayById[id].planned_status, "scheduled", "today " + id);
+  assert.strictEqual(todayById[id].planned_status, planned(id, "2026-11-08"), "today matches calendar " + id);
+});
+["yufu73", "yufu74", "sevenstars_qualita_1128"].forEach(function (id) {
+  assert.strictEqual(todayById[id].planned_status, "not_scheduled", "today " + id);
+  assert.strictEqual(todayById[id].planned_status, planned(id, "2026-11-08"), "today matches calendar " + id);
+});
+["aru_pm", "kanpachi", "ichiroku", "sevenstars_yufuin", "sevenstars_waita", "sevenstars_premium_b"].forEach(function (id) {
+  assert.strictEqual(todayById[id].planned_status, "unconfirmed", "today " + id);
+  assert.strictEqual(todayById[id].planned_status, planned(id, "2026-11-08"), "today matches calendar " + id);
+});
+assert.ok(todayById.sevenstars_premium_b.note.indexOf("Nov8") !== -1);
+assert.ok(todayById.sevenstars_premium_b.note.indexOf("unverified") !== -1);
 
 assert.ok(html.indexOf('id="disruption-heading"') !== -1);
 assert.ok(html.indexOf("data/seasonal-trains.js") !== -1);
