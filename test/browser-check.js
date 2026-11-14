@@ -117,7 +117,7 @@ async function main() {
   check("disruption heading", todayText.indexOf("由布院に関係する運休・遅延のお知らせ") !== -1);
   check("not realtime", todayText.indexOf("リアルタイムの運行情報ではありません") !== -1);
   check("yufurin suspension", todayText.indexOf("全便運休") !== -1);
-  check("checked window", todayText.indexOf("2026-11-07 07:59–08:02 JST") !== -1);
+  check("checked window", todayText.indexOf("2026-11-14 13:14–13:18 JST") !== -1);
   check("no normal claim", todayText.indexOf("平常運転") === -1);
   check("selected date", todayText.indexOf("表示日 2026年11月7日（土）") !== -1);
   var yufurinRow = await evalIn("document.querySelector('#chrono-body tr.rte-yufurin') && document.querySelector('#chrono-body tr.rte-yufurin').innerText");
@@ -141,6 +141,21 @@ async function main() {
   check("aru departure", depText.indexOf("或る列車 午後便") !== -1 && depText.indexOf("15:00頃") !== -1);
   check("ichiroku departure", depText.indexOf("いちろく") !== -1 && depText.indexOf("12:27") !== -1);
   check("disruption still visible", (await evalIn("document.getElementById('disruption-panel').innerText")).indexOf("ゆふりん") !== -1);
+
+  await open("http://127.0.0.1:" + port + "/?date=2026-11-15#jr");
+  await evalIn("document.getElementById('tab-jr').click()");
+  var nov15aruAm = await evalIn("[].slice.call(document.querySelectorAll('#jr-chrono-body tr, #jr-seasonal-body tr')).filter(function(tr){return tr.innerText.indexOf('或る列車 午前便')!==-1;}).map(function(tr){return tr.innerText;}).join('\\n')");
+  check("nov15 aru morning scheduled", nov15aruAm.indexOf("或る列車 午前便") !== -1 && nov15aruAm.indexOf("運転予定") !== -1, nov15aruAm);
+  var nov15kan = await evalIn("[].slice.call(document.querySelectorAll('#jr-chrono-body tr, #jr-seasonal-body tr')).filter(function(tr){return tr.innerText.indexOf('かんぱち')!==-1;}).map(function(tr){return tr.innerText;}).join('\\n')");
+  check("nov15 kanpachi not scheduled", nov15kan.indexOf("かんぱち") !== -1 && nov15kan.indexOf("運転設定なし") !== -1 && nov15kan.indexOf("運転予定") === -1, nov15kan);
+  await evalIn("document.getElementById('tab-dep').click()");
+  await sleep(100);
+  var nov15dep = await evalIn("document.getElementById('panel-jr-dep').innerText");
+  var nov15aruPm = await evalIn("[].slice.call(document.querySelectorAll('#jr-dep-chrono-body tr, #jr-dep-seasonal-body tr')).filter(function(tr){return tr.innerText.indexOf('或る列車 午後便')!==-1;}).map(function(tr){return tr.innerText;}).join('\\n')");
+  var nov15ichi = await evalIn("[].slice.call(document.querySelectorAll('#jr-dep-chrono-body tr, #jr-dep-seasonal-body tr')).filter(function(tr){return tr.innerText.indexOf('いちろく')!==-1;}).map(function(tr){return tr.innerText;}).join('\\n')");
+  check("nov15 aru afternoon scheduled", nov15aruPm.indexOf("或る列車 午後便") !== -1 && nov15aruPm.indexOf("運転予定") !== -1, nov15aruPm);
+  check("nov15 ichiroku scheduled", nov15ichi.indexOf("いちろく") !== -1 && nov15ichi.indexOf("運転予定") !== -1, nov15ichi);
+  check("nov15 departure panel", nov15dep.indexOf("或る列車 午後便") !== -1 && nov15dep.indexOf("いちろく") !== -1);
 
   await open("http://127.0.0.1:" + port + "/?date=2026-11-30#jr-limited");
   await evalIn("document.getElementById('tab-jr').click()");
