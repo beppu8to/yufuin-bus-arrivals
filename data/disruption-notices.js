@@ -1,7 +1,7 @@
 var DISRUPTION_DATA = {
-  "generated_at": "2026-11-07T08:02:39+09:00",
-  "checked_at": "2026-11-07T08:02:39+09:00",
-  "checked_window_jst": "2026-11-07 07:59–08:02 JST",
+  "generated_at": "2026-11-14T13:18:22+09:00",
+  "checked_at": "2026-11-14T13:18:22+09:00",
+  "checked_window_jst": "2026-11-14 13:14–13:18 JST",
   "timezone": "Asia/Tokyo",
   "is_realtime": false,
   "stale_after_hours": 12,
@@ -40,6 +40,20 @@ var DISRUPTION_DATA = {
       "source_time_note": "一覧の掲載日は2026年11月4日です。発表時刻の表示はなく、時刻は補っていません。",
       "relevance_source_url": "https://kamenoibus.com/archive/3690.html",
       "relevance": "同じ事業者の告知では、2026年10月7日から12月13日のゆのかぜは別府–湯布院コースです。"
+    },
+    {
+      "id": "kamenoi-yunokaze-winter-beppu-loop-20261214",
+      "route": "ゆのかぜ（別府–湯布院コース）",
+      "operator": "亀の井バス",
+      "type": "planned_course_change",
+      "summary": "ゆのかぜは2026年12月14日から2027年3月19日の冬季、「別府周遊コース」を運行します。この期間は別府－湯布院コースは運行しません。一部運休日があります。",
+      "effective_from": "2026-12-14",
+      "effective_until": "2027-03-19",
+      "source_url": "https://kamenoibus.com/archive/3793.html",
+      "source_list_url": "https://kamenoibus.com/archive/category/information",
+      "source_listed_date": "2026-11-14",
+      "source_time_note": "一覧の掲載日は2026年11月14日です。記事に「2026年11月14日 更新」とあり、発表時刻の表示はなく、時刻は補っていません。",
+      "relevance": "告知が、冬季期間中は別府－湯布院コースを運行しないと明示しています。"
     }
   ],
   "source_status": [
