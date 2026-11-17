@@ -1,7 +1,7 @@
 var DISRUPTION_DATA = {
-  "generated_at": "2026-11-17T10:16:00+09:00",
-  "checked_at": "2026-11-17T10:16:00+09:00",
-  "checked_window_jst": "2026-11-17 10:15–10:16 JST",
+  "generated_at": "2026-11-18T07:16:00+09:00",
+  "checked_at": "2026-11-18T07:16:00+09:00",
+  "checked_window_jst": "2026-11-18 07:16–07:20 JST",
   "timezone": "Asia/Tokyo",
   "is_realtime": false,
   "stale_after_hours": 12,
@@ -10,20 +10,6 @@ var DISRUPTION_DATA = {
   "safe_empty_message": "確認した情報源では、由布院に関係する運休・遅延のお知らせは見つかりませんでした。未確認の路線・情報源があります。平常運行を保証するものではありません。",
   "safe_failed_message": "最新情報を確認できません。前回確認時の参考情報です。公式サイトでご確認ください。",
   "current_relevant_notices": [
-    {
-      "id": "kamenoi-yunokaze-rain-20261117",
-      "route": "ゆのかぜ（別府–湯布院コース）",
-      "operator": "亀の井バス",
-      "type": "suspension",
-      "summary": "11月17日は雨の影響で、ゆのかぜの別府発9:00・12:15、由布院発10:40・14:20が運休です。ゆふいん号・市内路線バスは通常運行と掲載されています。",
-      "effective_from": "2026-11-17",
-      "effective_until": "2026-11-17",
-      "source_url": "https://kamenoibus.com/archive/service_status/3784.html",
-      "source_list_url": "https://kamenoibus.com/archive/service_status/3784.html",
-      "source_listed_date": "2026-11-17",
-      "source_time_note": "亀の井バス公式「現在の運行状況」の2026年11月17日10:00現在の掲載です。天候による当日の運休のため、後で変わる可能性があります。",
-      "relevance": "ゆのかぜは12月13日まで別府–湯布院コースで、由布院発着の便が運休になっています。"
-    },
     {
       "id": "kamenoi-yufurin-20261017",
       "route": "観光快速ゆふりん",
