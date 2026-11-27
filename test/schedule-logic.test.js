@@ -115,7 +115,7 @@ assert.strictEqual(logic.evaluateTrain(trains.aru_am, "2026-11-03").planned_stat
 assert.strictEqual(logic.evaluateTrain(trains.aru_pm, "2026-11-03").planned_status, "unconfirmed");
 assert.ok(logic.evaluateTrain(trains.aru_am, "2026-11-03").summary.indexOf("運休の証明ではなく") !== -1);
 
-["2026-11-14", "2026-11-15", "2026-11-16", "2026-11-19", "2026-11-20", "2026-11-21", "2026-11-22", "2026-11-23"].forEach(function (ymd) {
+["2026-11-14", "2026-11-15", "2026-11-16", "2026-11-19", "2026-11-20", "2026-11-21", "2026-11-22", "2026-11-23", "2026-11-28", "2026-11-29"].forEach(function (ymd) {
   assert.strictEqual(planned("mori3", ymd), "scheduled", ymd);
   assert.strictEqual(planned("yufu73", ymd), "not_scheduled", ymd);
 });
@@ -298,7 +298,14 @@ assert.ok(fresh.indexOf("https://kamenoibus.com/archive/3724.html") !== -1);
 assert.ok(fresh.indexOf("ゆのかぜ") !== -1);
 assert.ok(fresh.indexOf("12月3日") !== -1);
 assert.ok(fresh.indexOf("https://kamenoibus.com/archive/3728.html") !== -1);
-assert.ok(fresh.indexOf("2026-11-14 13:14–13:18 JST") !== -1);
+var currentPart = fresh.split("予定の告知")[0];
+assert.ok(currentPart.indexOf("観光快速ゆふりん") !== -1);
+assert.ok(currentPart.indexOf("3784.html") === -1);
+assert.ok(currentPart.indexOf("11月19日") === -1);
+assert.ok(fresh.indexOf("過去・終了または未確認") !== -1);
+assert.ok(fresh.indexOf("3784.html") !== -1);
+assert.ok(fresh.indexOf("別府周遊コース") !== -1);
+assert.ok(fresh.indexOf("2026-11-28 06:46–06:48 JST") !== -1);
 assert.ok(fresh.indexOf("リアルタイム") !== -1 || fresh.indexOf("ページを開いた時刻ではない") !== -1);
 assert.ok(fresh.indexOf("九州のりものinfo") !== -1);
 assert.ok(fresh.indexOf("平常運転") === -1);
@@ -306,21 +313,37 @@ assert.ok(fresh.indexOf("すべて通常") === -1);
 assert.ok(fresh.indexOf("最新情報を確認できません") === -1);
 var onInspection = logic.renderDisruption(disruption, "2026-12-03", fixedNow);
 assert.ok(onInspection.indexOf("表示日がこの運休日です") !== -1);
-var staleNow = new Date("2026-11-16T02:00:00+09:00");
-var staleHtml = logic.renderDisruption(disruption, "2026-11-16", staleNow);
+var staleNow = new Date("2026-11-29T07:00:00+09:00");
+var staleHtml = logic.renderDisruption(disruption, "2026-11-29", staleNow);
 assert.ok(staleHtml.indexOf("最新情報を確認できません。前回確認時の参考情報です。公式サイトでご確認ください。") !== -1);
 assert.ok(staleHtml.indexOf("観光快速ゆふりん") !== -1);
-assert.strictEqual(disruption.checked_at, "2026-11-14T13:18:22+09:00");
-assert.strictEqual(disruption.checked_window_jst, "2026-11-14 13:14–13:18 JST");
+assert.strictEqual(disruption.checked_at, "2026-11-28T06:48:00+09:00");
+assert.strictEqual(disruption.checked_window_jst, "2026-11-28 06:46–06:48 JST");
+assert.strictEqual(disruption.is_realtime, false);
+assert.strictEqual(disruption.coverage, "partial");
+assert.strictEqual(disruption.current_relevant_notices.length, 1);
+assert.strictEqual(disruption.current_relevant_notices[0].id, "kamenoi-yufurin-20261017");
+assert.strictEqual(disruption.past_or_unconfirmed_notices[0].type, "past_or_unconfirmed");
 
 var card = logic.seasonalCardHtml(seasonal, "2026-11-07", "arrival", fixedNow);
 assert.ok(card.indexOf("或る列車 午前便") !== -1);
 assert.ok(card.indexOf("運転予定") !== -1);
 assert.ok(card.indexOf("運行状況未確認") !== -1);
 assert.ok(card.indexOf("平常運転") === -1);
-assert.ok(card.indexOf("2026-11-15 06:53 JST") !== -1);
-assert.strictEqual(seasonal.checked_at, "2026-11-15T06:53:16+09:00");
-assert.strictEqual(seasonal.research_date, "2026-11-15");
+assert.ok(card.indexOf("2026-11-28 06:48 JST") !== -1);
+assert.strictEqual(seasonal.checked_at, "2026-11-28T06:48:00+09:00");
+assert.strictEqual(seasonal.research_date, "2026-11-28");
+function sourceById(id) {
+  return seasonal.sources.filter(function (s) { return s.id === id; })[0];
+}
+assert.strictEqual(sourceById("autumn").checked_at, "2026-11-28T06:48:00+09:00");
+assert.strictEqual(sourceById("winter").checked_at, "2026-11-28T06:48:00+09:00");
+assert.strictEqual(sourceById("mori").checked_at, "2026-11-28T06:48:00+09:00");
+assert.strictEqual(sourceById("mori3_detail").checked_at, "2026-11-28T06:48:00+09:00");
+assert.strictEqual(sourceById("mori4_detail").checked_at, "2026-11-15T06:53:16+09:00");
+assert.strictEqual(sourceById("aru_times").checked_at, "2026-11-15T06:53:16+09:00");
+assert.ok(sourceById("autumn").notes.indexOf("11/1-29") !== -1);
+assert.ok(sourceById("mori4_detail").notes.indexOf("404") !== -1);
 var todayById = {};
 seasonal.today.forEach(function (row) { todayById[row.train_id] = row; });
 ["mori1", "mori2", "mori3", "mori4", "mori5", "mori6", "aru_am"].forEach(function (id) {
