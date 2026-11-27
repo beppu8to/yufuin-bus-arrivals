@@ -117,7 +117,9 @@ async function main() {
   check("disruption heading", todayText.indexOf("由布院に関係する運休・遅延のお知らせ") !== -1);
   check("not realtime", todayText.indexOf("リアルタイムの運行情報ではありません") !== -1);
   check("yufurin suspension", todayText.indexOf("全便運休") !== -1);
-  check("checked window", todayText.indexOf("2026-11-14 13:14–13:18 JST") !== -1);
+  check("checked window", todayText.indexOf("2026-11-28 06:46–06:48 JST") !== -1);
+  check("past breakdown not current", todayText.indexOf("過去・終了または未確認") !== -1 && todayText.indexOf("3784.html") !== -1);
+  check("winter course notice", todayText.indexOf("別府周遊コース") !== -1 && todayText.indexOf("2027年3月19日") !== -1);
   check("no normal claim", todayText.indexOf("平常運転") === -1);
   check("selected date", todayText.indexOf("表示日 2026年11月7日（土）") !== -1);
   var yufurinRow = await evalIn("document.querySelector('#chrono-body tr.rte-yufurin') && document.querySelector('#chrono-body tr.rte-yufurin').innerText");

@@ -585,6 +585,22 @@
       if (n.relevance_source_url) html += ' ・ <a href="' + esc(n.relevance_source_url) + '">別府–湯布院コースの告知</a>';
       html += "<br>" + esc(n.source_time_note || "") + " " + esc(n.relevance || "") + "</p></article>";
     });
+    var past = source.past_or_unconfirmed_notices || [];
+    if (past.length) {
+      html += '<p class="disruption-kicker">過去・終了または未確認</p>';
+      past.forEach(function (n) {
+        var on = noticeApplies(n, selectedDate);
+        html += '<article class="notice notice-past">' +
+          "<h3>" + esc(n.route) + " <span class=\"status-badge is-inactive\">過去・未確認</span></h3>" +
+          "<p>" + esc(n.summary) + (on
+            ? " 表示日は告知されていた期間に入りますが、この告知は現行のページではなく、その後の運行は未確認です。"
+            : " 現行の運休告知ではありません。") + "</p>" +
+          '<p class="notice-meta"><a href="' + esc(n.source_url) + '">以前の告知URL</a>';
+        if (n.source_list_url) html += ' ・ <a href="' + esc(n.source_list_url) + '">運行状況一覧</a>';
+        if (n.latest_archive_url) html += ' ・ <a href="' + esc(n.latest_archive_url) + '">一覧の最新ページ</a>';
+        html += "<br>" + esc(n.source_time_note || "") + " " + esc(n.relevance || "") + "</p></article>";
+      });
+    }
     html += '<p class="disruption-kicker">確認できた範囲</p><ul class="source-status">';
     (source.source_status || []).forEach(function (s) {
       html += "<li><a href=\"" + esc(s.url) + "\">" + esc(s.name) + "</a>：" + esc(s.reason || s.status || "");

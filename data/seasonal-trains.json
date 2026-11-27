@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "checked_at": "2026-11-15T06:53:16+09:00",
+  "checked_at": "2026-11-28T06:48:00+09:00",
   "time_zone": "Asia/Tokyo",
-  "research_date": "2026-11-15",
+  "research_date": "2026-11-28",
   "not_a_live_feed": true,
   "scope": "Known Yufuin special/seasonal train families; not an exhaustive charter/repositioning registry",
   "sources": [
@@ -35,32 +35,32 @@
       "url": "https://www.jrkyushu.co.jp/news/__icsFiles/afieldfile/2026/08/21/20260821_Autumn_Temporary_Train_Operation_Plan.pdf",
       "title": "2026秋季臨時列車・D&S運転計画",
       "published_as_of": "2026-08-21",
-      "checked_at": "2026-11-15T06:53:16+09:00",
-      "notes": "WebFetch full primary text read; raw PDF download returned HTTP403. November Mori3/4 operate 1-29, not an inferred weekend rule."
+      "checked_at": "2026-11-28T06:48:00+09:00",
+      "notes": "WebFetch full primary text re-read 2026-11-28; raw PDF download returned HTTP403. November Mori3/4 operate 11/1-29. Mori1/2/5/6 operate 11/1-30. October Mori3/4 remain 10/1-13, 17, 18, 24-31. Not an inferred weekend rule."
     },
     {
       "id": "winter",
       "url": "https://www.jrkyushu.co.jp/news/__icsFiles/afieldfile/2026/10/22/20261022_Winter_2026_Special_Train_Operation_Plan_1.pdf",
       "title": "2026冬季臨時列車・D&S運転計画",
       "published_as_of": "2026-10-22",
-      "checked_at": "2026-11-15T06:53:16+09:00",
-      "notes": "WebFetch full primary text read; raw PDF download HTTP403. Valid December 2026-February 2027."
+      "checked_at": "2026-11-28T06:48:00+09:00",
+      "notes": "WebFetch full primary text re-read 2026-11-28; raw PDF download HTTP403. Valid December 2026-February 2027. Mori3/4 operate 12/5-31, 1/1-12, 16, 17, 22-31, and 2/1-28. Days they do not operate in that span use ゆふ73/74 at the same times and stops. Mori1/2/5/6 are daily."
     },
     {
       "id": "mori",
       "url": "https://www.jrkyushu.co.jp/trains/yufuinnomori/",
       "title": "ゆふいんの森公式",
       "published_as_of": "2026-10-22",
-      "checked_at": "2026-11-15T06:53:16+09:00",
-      "notes": "Timetable revised 2026-03-14. Confirms replacements with same times/stops; next detailed calendar for March onward expected mid-January 2027."
+      "checked_at": "2026-11-28T06:48:00+09:00",
+      "notes": "Re-read 2026-11-28. Timetable revised 2026-03-14. Summary table shows 3号 由布院12:32発 and 4号 由布院15:56発. Confirms replacements with same times/stops; page still says the next detailed calendar for March onward is expected mid-January 2027. Information dated 2026-10-22."
     },
     {
       "id": "mori3_detail",
       "url": "https://www.jrkyushu-timetable.jp/sp/2611/0016/00168001.html?d=20261031&t=2879201",
       "title": "JR公式 ゆふいんの森3号 8003D",
       "published_as_of": null,
-      "checked_at": "2026-11-15T06:53:16+09:00",
-      "notes": "Full official train detail read: Yufuin 12:27 arrival,12:32 departure; excluded Nov30-Dec4,Jan13-15,18-21. Query contains an October date; use season releases for validity."
+      "checked_at": "2026-11-28T06:48:00+09:00",
+      "notes": "Re-read 2026-11-28: Yufuin 12:27 arrival, 12:32 departure. Suspension note lists Oct 23, Nov 30-Dec 4, Jan 13-15 and 18-21. Query contains an October date; use season releases for validity."
     },
     {
       "id": "mori4_detail",
@@ -68,7 +68,7 @@
       "title": "JR公式 ゆふいんの森4号 8004D",
       "published_as_of": null,
       "checked_at": "2026-11-15T06:53:16+09:00",
-      "notes": "Full detail read: Yufuin15:46 arrival,15:56 departure. This older edition covers autumn, not winter date validity."
+      "notes": "Full detail read: Yufuin15:46 arrival,15:56 departure. This older edition covers autumn, not winter date validity. On 2026-11-28 this URL returned HTTP 404, so the 15:46 arrival was not re-read. The official product timetable re-read the same day shows 4号 由布院 15:56発, matching the stored departure."
     },
     {
       "id": "mori_repair",
@@ -179,16 +179,16 @@
       "url": "https://www.jrkyushu.co.jp/trains/info/oita.html",
       "title": "JR九州大分エリア運行情報",
       "published_as_of": null,
-      "checked_at": "2026-11-15T06:53:16+09:00",
-      "notes": "Fetched text only maintenance fallback; live Kudai/Yufu/Mori status unknown, not proof operator website actually down."
+      "checked_at": "2026-11-28T06:48:00+09:00",
+      "notes": "Re-read 2026-11-28: text is still the maintenance fallback only. Live Kudai/Yufu/Mori status unknown. Not proof the operator website is down, and not proof of normal operation."
     },
     {
       "id": "live_root",
       "url": "https://www.jrkyushu.co.jp/trains/info/",
       "title": "JR九州運行情報",
       "published_as_of": null,
-      "checked_at": "2026-11-15T06:53:16+09:00",
-      "notes": "Same maintenance-text fallback. No private/internal endpoint or TrainNavi scraping used."
+      "checked_at": "2026-11-28T06:48:00+09:00",
+      "notes": "Re-read 2026-11-28: same maintenance-text fallback. Live status remains unconfirmed. No private/internal endpoint or TrainNavi scraping used."
     }
   ],
   "trains": [
@@ -2261,6 +2261,7 @@
     "dates_are_JST": true
   },
   "gaps": [
+    "2026-11-28 re-read covered the autumn and winter D&S plans, the Yufuin no Mori product page, the Mori3 train detail, and the JR operation-info pages (maintenance text only). Aru, Kanpachi/Ichiroku, and Seven Stars sources were not re-fetched; their earlier checked_at remains.",
     "Aru complete operation calendar including agency charter directions needs browser visual read; direct JR sales positives only decoded.",
     "Kanpachi/Ichiroku calendar colors not decoded; do not claim Nov7 confirmed from Saturday rule.",
     "Sevenstars primary station timetable graphics unreadable; do not publish OCR candidates. Agency Nov28 stop exact approx times verified.",
